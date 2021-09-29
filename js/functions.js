@@ -28,7 +28,8 @@ getProductQTY = (qty) => {
 
 /*FONCTION DE RÉCUPÉRATION DE LA COULEUR DU PRODUIT AJOUTÉ AU PANIER*/
 getProductColor = () => {
-
+    var couleur = document.getElementById("product-option").value; //Je récupère la couleur sélectionnée
+    localStorage.lscolor = couleur;
 };
 
 
