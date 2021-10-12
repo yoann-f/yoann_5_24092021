@@ -139,9 +139,16 @@ productThumbnail = () => {
       /* ---------- FIN DE LA MISE EN RELATION DE L'ENSEMBLE DES ÉLÉMENTS HTML QUE NOUS AVONS CRÉÉ PRÉCÉDEMMENT ET AJOUT DE CES DERNIERS AU DOM DE LA PAGE produit.html ---------- */
 
     
-    //Mise en localStorage de la couleur sélectionnée par défaut pour le produit. Se réinitialise à chaque rechargement de la page. La valeur peut être modifiée par l'utilisateur via l'évènement "onchange" présent dans le DOM (lorsqu'il sélectionne une autre couleur dans le menu déroulant)
-    var couleur = document.getElementById("product-option").value; //Je récupère la couleur sélectionnée
-    localStorage.lscolor = couleur;
+    /*
+    * lsProductID récupère l'id du produit (page produit) et le stocke dans le localStorage
+    * getProductColor retourne la couleur par défaut du produit ou celle que l'utilisateur a sélectionné et la stocke dans le loacalStorage
+    * addProductToCart permet d'ajouter un produit au panier en cliquant sur le bouton "Ajouter au panier"
+    *  */
+    lsProductID();
+    lsProductQTY();
+    getProductColor();
+    addProductQTY();
+    addProductToCart();
     })
 
     .catch(function (error) {
