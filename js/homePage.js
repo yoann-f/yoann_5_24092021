@@ -6,7 +6,7 @@ productsLayout = () => {
     fetch(URL_API + productType)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data); //DEBUG: Le dossier retourne un tableau contenant l'ensemble des informations produits
+            //console.log(data); //DEBUG: Le dossier retourne un tableau contenant l'ensemble des informations produits
             let l = data.length; // Envoie en valeur "l", le nombre d'éléments contenus dans le tableau pour la boucle "for" ci-après
 
             for (let i = 0; i < l; i++) {
@@ -93,6 +93,7 @@ productsLayout = () => {
                 let container = document.getElementById("row");
                 container.appendChild(col);
             }
+            
         })
 
         // En cas d'erreur (non récupération de l'API par exemple), je retourne via une alert(), l'erreur en question

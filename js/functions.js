@@ -16,6 +16,7 @@ getProductID = (id) => {
     return idProduct; 
 };
 
+
 lsProductID = () => {
     var idProduct = getProductID();
     localStorage.lsProductID = idProduct;
@@ -28,11 +29,19 @@ lsProductID = () => {
 * Lorsque l'utilisateur clique sur le bouton d'ajout au panier :
         - La valeur de lsqty est raffraichît et ajoute +1 à 0 directement
         - Création de la localStorage lsQTY (si inexistante) ou remplacement de la valeur indiquée par la nouvelle valeur de la variable lsqty
+* Lorsque l'utilisateur sélectionne une couleur dans le menu déroulant, il réinitialise la valeur de lsqty à 0
 */
 lsProductQTY = () => {
     const addToCartClass = document.getElementById("addToCart");
 
     addToCartClass.addEventListener("click", () => {
+        lsqty++;
+        localStorage.lsQTY = lsqty;
+    });
+
+    const changeProductOption = document.getElementById("product-option");
+    changeProductOption.addEventListener("change", () => {
+        lsqty = -1;
         lsqty++;
         localStorage.lsQTY = lsqty;
     });
@@ -51,11 +60,11 @@ getProductQTY = (qty) => {
     myqty.innerText = qty;
 
     if (localStorage.getItem("cartQTY") && localStorage.cartQTY >= 0) {
-      console.log("%c L'indication pour la quantité de produit existe dans le localstorage :", "background: #222; color: #bada55", "KEY= cartQTY / Value= ", localStorage.cartQTY);
+      console.log("%cL'indication pour la quantité de produit existe dans le localstorage :", "background: #222; color: #bada55", "KEY= cartQTY / Value= ", localStorage.cartQTY);
     } else {
       let myqty = 0;
       localStorage.setItem("cartQTY", JSON.parse(myqty));
-      console.log("%c L'indication pour la quantité de produit n'existait pas dans le localstorage et a été créé :", "background: #222; color: #bada55", "KEY= cartQTY / Value= ", localStorage.cartQTY);
+      console.log("%cL'indication pour la quantité de produit n'existait pas dans le localstorage et a été créé :", "background: #222; color: #bada55", "KEY= cartQTY / Value= ", localStorage.cartQTY);
     }
 }
 
@@ -87,20 +96,38 @@ getProductColor = () => {
 
 //Ajoute un produit au panier
 addProductToCart = () => {
-    const addToCartClass = document.getElementById("addToCart");
+  const addToCartClass = document.getElementById("addToCart");
+
+  addToCartClass.addEventListener("click", () => {
+    console.log('La fonction "addProductToCart" a été exécuté.');
+    
+    //Création du productItemClass lors du clic
     
 
-    addToCartClass.addEventListener("click", () => {
-        
-            console.log("Euh ???");
-            var productList = [];
-            let productClass = new productItem(localStorage.lsProductID, localStorage.lsColor, localStorage.lsQTY);
-            productList.push(productClass);
-            console.log(productList);
-            localStorage.cartList = JSON.stringify(productList);
+    //Vérification des données du produit
+    if ((productItem.product_ID == localStorage.lsProductID) && (productItem.product_COLOR == localStorage.lsColor)) {
+        productItem.product_QTY = localStorage.lsQTY;
 
+        cartList = JSON.stringify(productList);
+        localStorage.setItem("cartList", cartList);
+
+        } else {
+        productItem = new productItemClass(localStorage.lsProductID, localStorage.lsColor, localStorage.lsQTY);
+        productList.push(productItem);
+        cartList = JSON.stringify(productList);
+        console.log("#3: La variable productList vaut :", productList); 
+        localStorage.setItem("cartList", cartList);
+
+        }
     });
 };
+
+
+/*Ce que je dois vérifier :
+if ((localStorage.lsProductID) && (localStorage.lsColor) {
+
+} else ...
+*/
 
 /*FONCTION PERMETTANT DE MANIPULER LE PANIER*/
 //Vérifie la liste des produits présents dans le panier
@@ -118,3 +145,12 @@ checkCartProductItem = () => {
 deleteProductFromCart = () => {
 
 };
+
+
+
+/*
+Créer fonctions :
+
+- Vérification 
+
+*/
